@@ -1,0 +1,14 @@
+*.pyc
+*.pyo
+*.mo
+*.db
+*.egg-info
+*.sql.gz
+.cache
+.project
+.idea
+.git/
+.dockerignore
+__pycache__
+envs/
+Dockerfile
