@@ -1,23 +1,80 @@
 [tool.poetry]
-name = "asterisk"
+name = "config"
 version = "0.1.0"
 description = ""
 authors = ["Jerzy Kapciak <jerzyryszardkapciak@gmail.com>"]
-readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11"
 django = "^5.0.6"
 sentry-sdk = "^2.7.1"
-djangorestframework = "^3.15.2"
+djangorestframework = "^3.15.0"
 django-filter = "^24.2"
 djangorestframework-simplejwt = "^5.3.1"
 whitenoise = "^6.7.0"
 psycopg2 = "^2.9.9"
-psycopg2-binary = "^2.9.9"
 django-phonenumber-field = "^8.0.0"
 django-phonenumbers = "^1.0.1"
+factory-boy = "^3.3.0"
+drf-yasg = {extras = ["validation"], version = "^1.21.7"}
 
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+django-debug-toolbar = "^4.4.5"
+black = "^24.4.2"
+bandit = "^1.7.9"
+isort = "^5.13.2"
+pylint = "^3.2.5"
+pytest = "^8.2.2"
+pytest-mock = "^3.14.0"
+psycopg2-binary = "^2.9.9"
+drf-yasg = "^1.21.7"
+pytest-django = "^4.8.0"
+
+[tool.black]
+line-length = 120
+target-version = ["py311"]
+--extend-exclude = '''
+/(
+  /venv
+)/
+| migrations/
+'''
+
+[tool.bandit]
+exclude_dirs = ["venv", "tests", "migrations", "conftest"]
+skips = ["B101", "B601"]
+
+[tool.pylint.SIMILARITIES]
+ignore-comments = "yes"
+ignore-docstrings = "yes"
+ignore-imports = "yes"
+min-similarity-lines = 5
+disable = ["E1101", "R0903", "W0613", "W0223"]
+
+[tool.pylint.DESIGN]
+max-args = 5
+good-names="i,j,k,v,ex,_,pk,x,y"
+
+[tool.pylint.FORMAT]
+max-line-length = 120
+ignore-paths=".*/migrations"
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = "missing-docstring, line-too-long, logging-fstring-interpolation, duplicate-code, fixme"
+
+[tool.isort]
+line_length = 120
+skip_glob = ["*/migrations/*"]
+profile = "black"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.test"
+python_files = "tests.py test_*.py *_tests.py"
+pythonpath = ["."]
+filterwarnings = ["ignore::DeprecationWarning"]
 
 [build-system]
 requires = ["poetry-core"]

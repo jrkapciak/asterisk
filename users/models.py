@@ -6,7 +6,6 @@ from django.db import models
 from django.db.models import UniqueConstraint
 from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
-
 from phonenumber_field.modelfields import PhoneNumberField
 
 from common.models import BaseModel
